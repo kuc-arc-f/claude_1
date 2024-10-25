@@ -31,7 +31,7 @@ bun run dev
 ***
 ### example
 
-* form1: form edit , claude.ai generate
+* form1: form edit chakra-ui, claude.ai generate
 
 *** 
 # License

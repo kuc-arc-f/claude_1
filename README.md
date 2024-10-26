@@ -32,7 +32,8 @@ bun run dev
 ### example
 
 * form1: form edit chakra-ui, claude.ai generate
-* form2: localStorage , data save
+* form2: localStorage data save, chakra-ui
+* form3: localStorage  data save , shadcn/ui
 
 *** 
 # License

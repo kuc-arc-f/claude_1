@@ -1,12 +1,12 @@
 ﻿# claude_1
 
- Version: 0.9.2
+ Version: 0.9.1
 
  Author  :
  
  date    : 2024/10/24
 
- update : 
+ update : 2024/10/22
 
 ***
 
@@ -32,6 +32,7 @@ bun run dev
 ### example
 
 * form1: form edit chakra-ui, claude.ai generate
+* form2: localStorage , data save
 
 *** 
 # License

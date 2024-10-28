@@ -6,11 +6,13 @@
  
  date    : 2024/10/26
 
- update :
+ update : 2024/10/29
 
 ***
 
 tanstack/react-table , form edit , localStorage save 
+
+* claude.ai generate code fix
 
 ***
 ### Prompt

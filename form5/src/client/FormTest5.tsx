@@ -2,6 +2,27 @@
 import { useState, useEffect } from 'react';
 import { z } from 'zod';
 
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  ColumnDef,
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+  getSortedRowModel,
+  SortingState,
+  getPaginationRowModel,
+  getFilteredRowModel,
+  ColumnFiltersState,
+  FilterFn,
+  GlobalFilterFn,
+} from "@tanstack/react-table";
 
 export const TodoSchema = z.object({
   id: z.number().optional(),
@@ -69,8 +90,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Search } from 'lucide-react';
-//import { toast } from "@/components/ui/use-toast";
 import { toast } from "@/hooks/use-toast";
+import { ArrowUpDown, Search } from "lucide-react";
 //
 import Head from '../components/Head';
 //
@@ -102,6 +123,18 @@ type ValidationErrors = {
 };
 const storageKey = "claude_1_form5";
 //
+// グローバル検索フィルター関数
+const fuzzyFilter: GlobalFilterFn<any> = (row, columnId, value, addMeta) => {
+  const itemValue = row.getValue(columnId);
+  if (itemValue == null) return false;
+  
+  const searchValue = value.toLowerCase();
+  const itemString = String(itemValue).toLowerCase();
+  
+  return itemString.includes(searchValue);
+};
+
+//
 const TodoApp: React.FC = () => {
   // localStorageフックを使用してTODOsを管理
   const [todos, setTodos] = useLocalStorage<TodoType[]>(storageKey, []);
@@ -111,7 +144,83 @@ const TodoApp: React.FC = () => {
   const [formData, setFormData] = useState<Omit<TodoType, 'id'>>(initialFormData);
   const [errors, setErrors] = useState<ValidationErrors>({});
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+  //
+  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [globalFilter, setGlobalFilter] = React.useState("");
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
 
+  // カラム定義
+  const columns: ColumnDef<Payment>[] = [
+    {
+      accessorKey: "id",
+      header: "ID",
+    },
+    {
+      accessorKey: "title",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Title
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        )
+      },
+      cell: ({ row }) => {
+        const title = row.getValue("title");
+        return <div className="font-medium">{title}</div>
+      },
+    },   
+    {
+      accessorKey: "action",
+      header: "Action",
+      cell: ({ row }) => {
+        const  payment= row.original;
+        return (
+        <div className="flex gap-2">
+          <Button variant="outline"
+          onClick={() => {
+            console.log("id=", payment.id);
+            console.log(payment);
+            handleEdit(payment)
+          }}>
+            Edit
+          </Button>      
+          <Button
+            variant="destructive"
+            onClick={() => {
+              console.log("id=", payment.id);
+              handleDelete(payment.id);
+            }}
+          >
+            Delete
+          </Button>
+        </div>
+        )
+      },
+    },
+  ];
+  //
+  const table = useReactTable({
+    data: todos,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    onSortingChange: setSorting,
+    onGlobalFilterChange: setGlobalFilter,
+    onColumnFiltersChange: setColumnFilters,
+    globalFilterFn: fuzzyFilter,
+    state: {
+      sorting,
+      globalFilter,
+      columnFilters,
+    },
+  });
+  //
   const validateForm = (): boolean => {
     try {
       TodoSchema.parse({ ...formData });
@@ -350,6 +459,82 @@ console.log("#handleSubmit");
         </Dialog>
       </div>
 
+
+      {/* Table */}
+      <div className="rounded-md border">
+        <Table>
+          <TableHeader className="bg-gray-100">
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
+                  return (
+                    <TableHead key={header.id}>
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                    </TableHead>
+                  );
+                })}
+              </TableRow>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow key={row.id}>
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                  No results.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
+      <div className="flex items-center justify-end space-x-2 py-4">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
+          Previous
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+        >
+          Next
+        </Button>
+      </div>
+
+    </div>
+  </>
+  );
+};
+
+export default TodoApp;
+
+/*
       <div className="grid gap-4">
         {filteredTodos.length === 0 ? (
           <div className="text-center p-8 text-gray-500">
@@ -390,9 +575,4 @@ console.log("#handleSubmit");
           ))
         )}
       </div>
-    </div>
-  </>
-  );
-};
-
-export default TodoApp;
+*/

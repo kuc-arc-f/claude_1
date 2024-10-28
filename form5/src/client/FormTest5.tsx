@@ -91,7 +91,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Search } from 'lucide-react';
 import { toast } from "@/hooks/use-toast";
-import { ArrowUpDown, Search } from "lucide-react";
+import { ArrowUpDown, Plus, Pencil, Trash2, Search } from 'lucide-react';
 //
 import Head from '../components/Head';
 //
@@ -99,23 +99,23 @@ const initialFormData: Omit<TodoType, 'id'> = {
   title: '',
   content: '',
   public: 'public',
-  food_orange: false,
-  food_apple: false,
-  food_banana: false,
-  food_melon: false,
-  food_grape: false,
+  food_orange: true,
+  food_apple: true,
+  food_banana: true,
+  food_melon: true,
+  food_grape: true,
   pub_date1: '',
   pub_date2: '',
   pub_date3: '',
   pub_date4: '',
   pub_date5: '',
   pub_date6: '',
-  qty1: '',
-  qty2: '',
-  qty3: '',
-  qty4: '',
-  qty5: '',
-  qty6: '',
+  qty1: '0',
+  qty2: '0',
+  qty3: '0',
+  qty4: '0',
+  qty5: '0',
+  qty6: '0',
 };
 
 type ValidationErrors = {
@@ -175,27 +175,28 @@ const TodoApp: React.FC = () => {
     },   
     {
       accessorKey: "action",
-      header: "Action",
+      header: ({ column }) => {
+        return (<div className="text-center font-medium">Action</div>)
+      },
       cell: ({ row }) => {
         const  payment= row.original;
+        //flex gap-2 
         return (
-        <div className="flex gap-2">
-          <Button variant="outline"
+        <div className="text-end">
+          <Button variant="outline" size="icon"
           onClick={() => {
             console.log("id=", payment.id);
             console.log(payment);
             handleEdit(payment)
-          }}>
-            Edit
+          }}><Pencil className="h-4 w-4" />
           </Button>      
-          <Button
-            variant="destructive"
+          <Button className="mx-2"
+            variant="destructive" size="icon"
             onClick={() => {
               console.log("id=", payment.id);
               handleDelete(payment.id);
             }}
-          >
-            Delete
+          ><Trash2 className="h-4 w-4" />
           </Button>
         </div>
         )
@@ -322,19 +323,19 @@ console.log("#handleSubmit");
   <>
     <Head />
     <div className="p-4 max-w-4xl mx-auto">
-      <h1 className="text-4xl font-bold">FormTest5</h1>
+      <h1 className="text-3xl font-bold">Form5</h1>
       <hr className="my-2" />
-      <div className="mb-4 flex items-center gap-4">
-        <div className="relative flex-1">
-          <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-500" />
-          <Input
-            type="text"
-            placeholder="検索..."
-            className="pl-8"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </div>
+      {/* グローバル検索 */}
+      <div className="flex-1 flex items-center gap-x-2">
+        <Search className="h-4 w-4 text-gray-500" />
+        <Input
+          placeholder="Search all columns..."
+          value={globalFilter}
+          onChange={(e) => setGlobalFilter(e.target.value)}
+          className="max-w-sm"
+        />
+      </div>
+      <div className="mt-2 mb-4 flex items-center gap-4">
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
             <Button onClick={() => setIsDialogOpen(true)}>新規TODO</Button>

@@ -10,7 +10,7 @@
 
 ***
 
-form edit localStorage save , shadcn/ui
+tanstack/react-table , form edit , localStorage save 
 
 ***
 ### Prompt

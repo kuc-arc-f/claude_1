@@ -118,9 +118,6 @@ const initialFormData: Omit<TodoType, 'id'> = {
   qty6: '0',
 };
 
-type ValidationErrors = {
-  [key in keyof TodoType]?: string[];
-};
 const storageKey = "claude_1_form6";
 //
 // グローバル検索フィルター関数
@@ -139,11 +136,6 @@ const TodoApp: React.FC = () => {
   // localStorageフックを使用してTODOsを管理
   const [todos, setTodos] = useLocalStorage<TodoType[]>(storageKey, []);
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [isEditMode, setIsEditMode] = useState<boolean>(false);
-  const [currentTodo, setCurrentTodo] = useState<TodoType | null>(null);
-  const [formData, setFormData] = useState<Omit<TodoType, 'id'>>(initialFormData);
-  const [errors, setErrors] = useState<ValidationErrors>({});
-  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
   //
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = React.useState("");
@@ -192,7 +184,6 @@ const TodoApp: React.FC = () => {
             onClick={() => {
               console.log("id=", payment.id);
               handleDelete(payment.id);
-              loca
             }}
           ><Trash2 className="h-4 w-4" />
           </Button>
@@ -219,87 +210,6 @@ const TodoApp: React.FC = () => {
       columnFilters,
     },
   });
-  //
-  const validateForm = (): boolean => {
-    try {
-      TodoSchema.parse({ ...formData });
-      setErrors({});
-      return true;
-    } catch (error) {
-console.error(error);
-      if (error instanceof z.ZodError) {
-        const formattedErrors: ValidationErrors = {};
-        error.errors.forEach((err) => {
-          if (err.path) {
-            const field = err.path[0] as keyof TodoType;
-            if (!formattedErrors[field]) {
-              formattedErrors[field] = [];
-            }
-            formattedErrors[field]?.push(err.message);
-          }
-        });
-        setErrors(formattedErrors);
-        
-        const errorMessages = error.errors.map(err => err.message).join('\n');
-        toast({
-          title: "入力エラー",
-          description: errorMessages,
-          variant: "destructive",
-        });
-      }
-      return false;
-    }
-  };
-
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ): void => {
-    const { name, value, type } = e.target;
-    const checked = type === 'checkbox' ? (e.target as HTMLInputElement).checked : undefined;
-
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }));
-  };
-
-  const handleSubmit = (): void => {
-console.log("#handleSubmit");
-    if (!validateForm()) return;
-
-    if (isEditMode && currentTodo) {
-      setTodos(todos.map(todo => 
-        todo.id === currentTodo.id ? { ...formData, id: todo.id } : todo
-      ));
-      toast({
-        title: "更新完了",
-        description: "TODOが正常に更新されました。",
-      });
-    } else {
-      const newTodo = { ...formData, id: Date.now() };
-      setTodos([...todos, newTodo]);
-      toast({
-        title: "作成完了",
-        description: "新しいTODOが作成されました。",
-      });
-    }
-    setIsDialogOpen(false);
-    resetForm();
-  };
-
-  const resetForm = (): void => {
-    setFormData(initialFormData);
-    setErrors({});
-    setIsEditMode(false);
-    setCurrentTodo(null);
-  };
-
-  const handleEdit = (todo: TodoType): void => {
-    setIsEditMode(true);
-    setCurrentTodo(todo);
-    setFormData(todo);
-    setIsDialogOpen(true);
-  };
 
   const handleDelete = (id: number): void => {
     const confirmed = window.confirm('このTODOを削除してもよろしいですか？');

@@ -251,12 +251,25 @@ console.log("#handleSubmit.isEditMode=" , isEditMode);
     <div className="p-4 max-w-4xl mx-auto">
       <h1 className="text-3xl font-bold">Form6</h1>
       <hr className="my-2" />
+      <div>
+        <a href="/form_test6">
+          <Button variant="outline" className="mx-2">Back
+          </Button>
+        </a>
+        <Button onClick={() => setIsDialogOpen(true)}>
+        {isEditMode ? 'TODO編集' : '新規TODO作成'}
+        </Button>
+      </div>
+
       <div className="mt-2 mb-4 flex items-center gap-4">
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <hr />
           <DialogTrigger asChild>
+            {/*
             <Button onClick={() => setIsDialogOpen(true)}>
             {isEditMode ? 'TODO編集' : '新規TODO作成'}
             </Button>
+            */}
           </DialogTrigger>
           <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>

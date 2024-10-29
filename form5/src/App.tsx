@@ -13,10 +13,10 @@ import Plan from './client/Plan';
 import Todo from './client/Todo';
 //
 import Test1 from './client/Test1';
-import Test2 from './client/Test2';
-import Test3 from './client/Test3';
-import Test4 from './client/Test4';
-import DataTable from './client/DataTable';
+//import Test2 from './client/Test2';
+//import Test3 from './client/Test3';
+//import Test4 from './client/Test4';
+//import DataTable from './client/DataTable';
 //
 export default function App(){
     return(
@@ -33,12 +33,12 @@ export default function App(){
         <Route path="/plan" element={<Plan />} />
         <Route path="/todo" element={<Todo />} />
         <Route path="/test1" element={<Test1 />} />
-        <Route path="/test3" element={<Test3 />} />
-        <Route path="/test4" element={<Test4 />} />
-        <Route path="/datatable" element={<DataTable />} />
       </Routes>
     </div>
     )
 }
 /*
+<Route path="/test3" element={<Test3 />} />
+<Route path="/test4" element={<Test4 />} />
+<Route path="/datatable" element={<DataTable />} />
 */

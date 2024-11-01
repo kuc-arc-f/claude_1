@@ -6,7 +6,7 @@
  
  date    : 2024/10/24
 
- update : 2024/10/29 
+ update : 2024/10/31 
 
 ***
 
@@ -34,6 +34,7 @@ bun run dev
 * form2: localStorage data save, chakra-ui
 * form3: localStorage  data save , shadcn/ui
 * form5: tanstack/react-table, form + shadcn/ui , claude.ai generate
+* plan4: Schedule , localStorage save
 
 *** 
 # License

@@ -17,7 +17,7 @@ mermaid.js display
 * .env
 
 ```
-APP_NAME="bolt_5"
+APP_NAME="claude_1"
 AUTH_USER_MAIL="test1@example.com"
 AUTH_PASSWORD="1234"
 AUTH_USER_ID=1

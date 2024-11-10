@@ -10,7 +10,12 @@
 
 ***
 
-mermaid.js display
+mermaid.js display , d1 + database
+
+***
+### workers + D1 database
+
+https://github.com/kuc-arc-f/hono_34api
 
 ***
 ### Setup

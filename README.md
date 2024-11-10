@@ -6,7 +6,7 @@
  
  date    : 2024/10/24
 
- update : 2024/10/31 
+ update : 2024/11/10
 
 ***
 
@@ -36,15 +36,15 @@ bun run dev
 * form5: tanstack/react-table, form + shadcn/ui , claude.ai generate
 * plan4: Schedule , localStorage save
 
-*** 
-# License
-
-* MIT
-
 ***
 ### ChangeLog
 
 * VER_0_9_1: new
+
+*** 
+# License
+
+* MIT
 
 ***
 

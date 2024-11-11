@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Pencil, Trash2, Search } from 'lucide-react';
 import { z } from 'zod';
+import { format } from 'date-fns';
 import {
   Dialog,
   DialogContent,
@@ -21,7 +22,8 @@ import CrudIndex from './TaskItem/CrudIndex';
 // zodスキーマの定義
 const todoSchema = z.object({
   title: z.string().min(2, "タイトルは2文字以上で入力してください"),
-  content: z.string().min(1, "内容を入力してください"),
+  content: z.string(),
+  //content: z.string().min(1, "内容を入力してください"),
   status: z.enum(["none", "working", "complete"]),
   task_start: z.string().min(1, "開始日を入力してください"),
   task_end: z.string().min(1, "終了日を入力してください"),
@@ -37,6 +39,7 @@ interface Todo extends TodoSchema {
 interface ValidationErrors {
   [key: string]: string[];
 }
+const nowDate = new Date();
 
 const TodoApp: React.FC = () => {
   const [updatetime, setUpdatetime] = React.useState("");
@@ -72,8 +75,8 @@ const TodoApp: React.FC = () => {
       title: '',
       content: '',
       status: 'none',
-      task_start: '',
-      task_end: '',
+      task_start: format(nowDate, 'yyyy-MM-dd'),
+      task_end: format(nowDate, 'yyyy-MM-dd'),
     });
     setCurrentTodo(null);
     setErrors({});
@@ -159,9 +162,21 @@ const TodoApp: React.FC = () => {
   return (
   <>
     <Head />
+    <div>
+      <a href="/task_project"> 
+        <Button variant="outline" className="mx-2 mt-2">Back</Button>
+      </a>
+    </div>    
+    <hr className="my-1" />    
     <div className="p-4 max-w-4xl mx-auto">
+
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">Task</h1>
+        <div className="text-end">
+          <a href={`/task_item_gantt/${form1_id}`}>
+            <Button variant="outline" className="mx-2">Gantt</Button>
+          </a>
+        </div>
         <TodoForm 
         handleSubmit={handleSubmit}
         currentTodo={currentTodo}
@@ -175,11 +190,6 @@ const TodoApp: React.FC = () => {
         />
       </div>
       {/* Gantt */}
-      <div className="text-end mb-2">
-        <a href={`/task_item_gantt/${form1_id}`}>
-          <Button variant="outline" className="mx-2">Gantt</Button>
-        </a>
-      </div>
       <div className="mb-4">
         <div className="relative">
           <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />

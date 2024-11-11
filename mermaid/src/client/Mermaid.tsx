@@ -34,8 +34,6 @@ interface ValidationErrors {
   [key: string]: string[];
 }
 
-const LOCAL_STORAGE_KEY = 'claude_1_todos';
-
 const TodoApp: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -55,25 +53,6 @@ const TodoApp: React.FC = () => {
       console.log(d);
     })()
   }, []);
-
-  // LocalStorageからデータを読み込む
-  useEffect(() => {
-    const savedTodos = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if (savedTodos) {
-      try {
-        const parsedTodos = JSON.parse(savedTodos);
-        console.log(parsedTodos);
-        //setTodos(parsedTodos);
-      } catch (error) {
-        console.error('Failed to parse todos from localStorage:', error);
-      }
-    }
-  }, []);
-
-  // TODOsが変更されたらLocalStorageに保存
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
-  }, [todos]);
 
   const resetForm = () => {
     setFormData({

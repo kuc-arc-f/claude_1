@@ -35,6 +35,8 @@ bun run dev
 * form3: localStorage  data save , shadcn/ui
 * form5: tanstack/react-table, form + shadcn/ui , claude.ai generate
 * plan4: Schedule , localStorage save
+* mermaid: mermaid chat display , d1 + database
+* task_manage: task manage , d1 + database
 
 ***
 ### ChangeLog

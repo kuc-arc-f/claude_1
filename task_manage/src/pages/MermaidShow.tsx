@@ -53,7 +53,7 @@ console.log(item);
           </CardHeader>
           <CardContent>
             <hr className="my-1" />
-            <pre className="mermaid">{mText}</pre>
+            <pre className="mermaid text-white">{mText}</pre>
           </CardContent>
           <CardFooter className="flex justify-between">
           </CardFooter>

@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 //
 import Login from './client/login';
 import Home from './client/home';
+import About from './client/about';
 import BookMark from './client/BookMark';
 import Chat from './client/Chat';
 import Cms from './client/Cms';
@@ -31,6 +32,7 @@ export default function App(){
     <div className="App">
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/cms" element={<Cms />} />

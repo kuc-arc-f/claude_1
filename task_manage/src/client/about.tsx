@@ -21,8 +21,9 @@ import Head from '../components/Head';
 import CrudIndex from './Mermaid/CrudIndex';
 
 
-// {id: 1, title: "about", url: "/about"},
+//
 const items = [
+  {id: 1, title: "about", url: "/about"},
   {id: 2, title: "chat", url: "/chat"},
   {id: 3, title: "cms", url: "/cms"},
   {id: 4, title: "form_test1", url: "/form_test1"},
@@ -44,24 +45,10 @@ const TodoApp: React.FC = () => {
     <Head />
     <div className="p-4 max-w-4xl mx-auto">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">home</h1>
+        <h1 className="text-2xl font-bold">About</h1>
       </div>
 
-      <div className="space-y-4">
-        {items.map(todo => (
-          <div key={todo.id} className="border p-4 rounded-lg shadow hover:shadow-md transition-shadow duration-200">
-            <div className="flex justify-between items-start">
-              <div>
-                <a href={`${todo.url}`}>
-                  <h3 className="font-bold">{todo.title}</h3>
-                </a>
-              </div>
-              <div className="flex gap-2">
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+
     </div>  
   </>
 
@@ -69,10 +56,3 @@ const TodoApp: React.FC = () => {
 };
 
 export default TodoApp;
-/*
-  <div className="main_body_wrap container mx-auto my-2 px-8 bg-white">
-    <Head />
-    <h1 className="text-4xl font-bold">home</h1>
-    <hr className="my-2" />
-  </div>
-*/

@@ -82,6 +82,7 @@ const TodoApp: React.FC = () => {
   }, [todos]);
 
   const resetForm = () => {
+    //console.log("#resetForm");
     setFormData({
       title: '',
       content: '',
@@ -136,6 +137,7 @@ const TodoApp: React.FC = () => {
   };
 
   const handleEdit = (todo: Todo) => {
+    setErrors({});
     setCurrentTodo(todo);
     setFormData(todo);
     setIsOpen(true);

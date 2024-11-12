@@ -297,11 +297,17 @@ console.log("#handleSubmit");
   };
 
   const handleEdit = (todo: TodoType): void => {
+    setErrors({});
     setIsEditMode(true);
     setCurrentTodo(todo);
     setFormData(todo);
     setIsDialogOpen(true);
   };
+
+  const openCreate =  function(){
+    resetForm();
+    setIsDialogOpen(true);
+  }
 
   const handleDelete = (id: number): void => {
     const confirmed = window.confirm('このTODOを削除してもよろしいですか？');
@@ -338,7 +344,8 @@ console.log("#handleSubmit");
       <div className="mt-2 mb-4 flex items-center gap-4">
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <Button onClick={() => setIsDialogOpen(true)}>新規TODO</Button>
+            {/* <Button onClick={() => setIsDialogOpen(true)}>新規TODO</Button> */}
+            <Button onClick={() => openCreate()}>新規TODO</Button>
           </DialogTrigger>
           <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>

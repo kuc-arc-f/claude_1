@@ -1,7 +1,11 @@
 import fs from 'node:fs/promises'
 import express from "express";
 import { renderToString } from 'react-dom/server';
+import cookieParser from "cookie-parser";
+import session from "express-session";
 
+import Common from './lib/Common';
+import Login from './client/login';
 import Top from './pages/App';
 import About from './pages/about';
 import Test3 from './pages/Test3';
@@ -9,8 +13,8 @@ import MermaidShow from './pages/MermaidShow';
 import MermaidCrudIndex from './pages/MermaidShow/CrudIndex';
 import TaskItemGantt from './pages/TaskItemGantt';
 import TaskItemCrudIndex from './pages/TaskItem/CrudIndex';
-
-//commonRouter
+//
+import userRouter from './routes/userRouter';
 import bookmarkRouter from './routes/bookmarkRouter';
 import commonRouter from './routes/commonRouter';
 import chatRouter from './routes/chatRouter';
@@ -23,9 +27,11 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(express.static('public'));
 console.log("env= ", process.env.NODE_ENV);
 //
+app.use('/api/user', userRouter);
 app.use('/api/bookmark', bookmarkRouter);
 app.use('/api/common', commonRouter);
 app.use('/api/chat', chatRouter);
@@ -33,8 +39,29 @@ app.use('/api/cms', cmsRouter);
 app.use('/api/plan', planRouter);
 app.use('/api/todo', todoRouter);
 app.use('/api/mermaid', mermaidRouter);
+// Session
+app.use(session({
+  secret: 'secret key',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 1000 * 60 * Number(process.env.AUTH_EXPIRED_TIME),  // クッキーの有効期限をn-minに設定(msec * sec * min)
+    //httpsを使用しない
+    secure: false
+  }
+}));
 //
 const errorObj = {ret: "NG", messase: "Error"};
+//middleware
+app.use(async function(req: any, res: any, next: any){
+  const valid = await Common.validUser(req, res);
+  if(!valid) {
+    console.log("nothing, user-session");
+    res.redirect('/login');
+  } else {
+    next();
+  }
+});
 //MPA 
 app.get("/test3", (req, res) => {
   res.send(renderToString(Test3()));

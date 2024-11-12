@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 
 //
+import Login from './client/login';
 import Home from './client/home';
 import BookMark from './client/BookMark';
 import Chat from './client/Chat';
@@ -30,6 +31,7 @@ export default function App(){
     <div className="App">
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/cms" element={<Cms />} />
         <Route path="/bookmark" element={<BookMark />} />

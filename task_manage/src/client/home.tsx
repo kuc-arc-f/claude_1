@@ -42,14 +42,16 @@ const TodoApp: React.FC = () => {
   return (
   <>
     <Head />
-    <div className="p-4 max-w-4xl mx-auto">
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">home</h1>
+    <hr />
+    <div className="px-4 pt-2 pb-24 max-w-4xl mx-auto">
+      <div className="flex justify-between items-center mb-2">
+        <h1 className="text-2xl font-bold">menu</h1>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-2">
         {items.map(todo => (
-          <div key={todo.id} className="border p-4 rounded-lg shadow hover:shadow-md transition-shadow duration-200">
+          <div key={todo.id} 
+          className="border px-4 py-2 rounded-lg shadow hover:shadow-md transition-shadow duration-200">
             <div className="flex justify-between items-start">
               <div>
                 <a href={`${todo.url}`}>
@@ -70,9 +72,4 @@ const TodoApp: React.FC = () => {
 
 export default TodoApp;
 /*
-  <div className="main_body_wrap container mx-auto my-2 px-8 bg-white">
-    <Head />
-    <h1 className="text-4xl font-bold">home</h1>
-    <hr className="my-2" />
-  </div>
 */

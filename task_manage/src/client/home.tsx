@@ -23,17 +23,18 @@ import CrudIndex from './Mermaid/CrudIndex';
 
 // {id: 1, title: "about", url: "/about"},
 const items = [
+  {id: 0, title: "bookmark", url: "/bookmark"},
   {id: 2, title: "chat", url: "/chat"},
   {id: 3, title: "cms", url: "/cms"},
-  {id: 4, title: "form_test1", url: "/form_test1"},
-  {id: 5, title: "form_test3", url: "/form_test3"},
+  {id: 4, title: "Form1", url: "/form_test1"},
+  {id: 5, title: "Form3", url: "/form_test3"},
   {id: 6, title: "Form4", url: "/form_test4"},
   {id: 7, title: "Form5", url: "/form_test5"},
   {id: 8, title: "Form6", url: "/form_test6"},
-  {id: 9, title: "plan", url: "/plan"},
-  {id: 10, title: "plan4", url: "/plan4"},
-  {id: 11, title: "Mermaid", url: "/mermaid"},
-  {id: 12, title: "todo", url: "/todo"},
+  {id: 9, title: "Mermaid", url: "/mermaid"},
+  {id: 10, title: "plan", url: "/plan"},
+  {id: 11, title: "plan4", url: "/plan4"},
+  {id: 12, title: "Todo", url: "/todo"},
   {id: 13, title: "TaskProject", url: "/task_project"},
 ];
 
@@ -49,8 +50,8 @@ const TodoApp: React.FC = () => {
       </div>
 
       <div className="space-y-2">
-        {items.map(todo => (
-          <div key={todo.id} 
+        {items.map((todo, index) => (
+          <div key={index} 
           className="border px-4 py-2 rounded-lg shadow hover:shadow-md transition-shadow duration-200">
             <div className="flex justify-between items-start">
               <div>

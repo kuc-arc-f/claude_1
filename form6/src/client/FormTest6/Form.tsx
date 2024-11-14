@@ -65,7 +65,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent } from "@/components/ui/card";
+//import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle,} from "@/components/ui/card";
+
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Search } from 'lucide-react';
@@ -128,7 +130,7 @@ console.log("props.form_id=", props.form_id);
 console.log("useEffect.form1_id=", form1_id);
         editOpen(form1_id);
       }else{
-        setIsDialogOpen(true);
+        //setIsDialogOpen(true);
       }
     } catch (error) {
       console.error('Failed :', error);
@@ -144,8 +146,6 @@ console.log("useEffect.form1_id=", form1_id);
       console.log(row);
       handleEdit(row);
     }
-    //setIsEditMode(true);
-    //setIsDialogOpen(true);
   }
   //
   const validateForm = (): boolean => {
@@ -227,7 +227,7 @@ console.log("#handleSubmit.isEditMode=" , isEditMode);
     setIsEditMode(true);
     setCurrentTodo(todo);
     setFormData(todo);
-    setIsDialogOpen(true);
+    //setIsDialogOpen(true);
   };
 
   const handleDelete = (id: number): void => {
@@ -249,150 +249,155 @@ console.log("#handleSubmit.isEditMode=" , isEditMode);
   return (
   <>
     <div className="p-4 max-w-4xl mx-auto">
+    <div>
+      <a href="/form_test6"> 
+        <Button variant="outline" className="mx-2">Back
+        </Button>
+      </a>
+    </div>
+      {/*
       <h1 className="text-3xl font-bold">Form6</h1>
       <hr className="my-2" />
-      <div>
-        <a href="/form_test6">
-          <Button variant="outline" className="mx-2">Back
-          </Button>
-        </a>
-        <Button onClick={() => setIsDialogOpen(true)}>
-        {isEditMode ? 'TODO編集' : '新規TODO作成'}
-        </Button>
-      </div>
-
-      <div className="mt-2 mb-4 flex items-center gap-4">
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <hr />
-          <DialogTrigger asChild>
-            {/*
-            <Button onClick={() => setIsDialogOpen(true)}>
-            {isEditMode ? 'TODO編集' : '新規TODO作成'}
-            </Button>
-            */}
-          </DialogTrigger>
-          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-            <DialogHeader>
-              <DialogTitle>{isEditMode ? 'TODO編集' : '新規TODO作成'}</DialogTitle>
-            </DialogHeader>
-            {/* フォームの内容は変更なし */}
-            <div className="grid gap-4">
-              <div>
-                <Label htmlFor="title">タイトル</Label>
-                <Input
-                  id="title"
-                  name="title"
-                  value={formData.title}
-                  onChange={handleInputChange}
-                  className={errors.title ? 'border-red-500' : ''}
-                />
-                {errors.title && (
-                  <p className="text-red-500 text-sm mt-1">{errors.title[0]}</p>
-                )}
-              </div>
-
-              <div>
-                <Label htmlFor="content">内容</Label>
-                <Textarea
-                  id="content"
-                  name="content"
-                  value={formData.content}
-                  onChange={handleInputChange}
-                  className={errors.content ? 'border-red-500' : ''}
-                />
-                {errors.content && (
-                  <p className="text-red-500 text-sm mt-1">{errors.content[0]}</p>
-                )}
-              </div>
-
-              <div>
-                <Label>公開設定</Label>
-                <RadioGroup
-                  name="public"
-                  value={formData.public}
-                  onValueChange={(value: "public" | "private") => 
-                    setFormData(prev => ({ ...prev, public: value }))}
-                >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="public" id="public" />
-                    <Label htmlFor="public">公開</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="private" id="private" />
-                    <Label htmlFor="private">非公開</Label>
-                  </div>
-                </RadioGroup>
-              </div>
-
-              <div>
-                <Label>フルーツ選択</Label>
-                <div className="grid grid-cols-2 gap-2">
-                  {['orange', 'apple', 'banana', 'melon', 'grape'].map((fruit) => (
-                    <div key={fruit} className="flex items-center space-x-2">
-                      <Checkbox
-                        id={`food_${fruit}`}
-                        name={`food_${fruit}`}
-                        checked={formData[`food_${fruit as 'orange' | 'apple' | 'banana' | 'melon' | 'grape'}`]}
-                        onCheckedChange={(checked: boolean) =>
-                          setFormData(prev => ({ 
-                            ...prev, 
-                            [`food_${fruit}`]: checked 
-                          }))
-                        }
-                      />
-                      <Label htmlFor={`food_${fruit}`}>{fruit}</Label>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                {[1, 2, 3, 4, 5, 6].map((num) => (
-                  <div key={`date${num}`}>
-                    <Label htmlFor={`pub_date${num}`}>日付{num}</Label>
-                    <Input
-                      type="date"
-                      id={`pub_date${num}`}
-                      name={`pub_date${num}`}
-                      value={formData[`pub_date${num as 1 | 2 | 3 | 4 | 5 | 6}`]}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                ))}
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                {[1, 2, 3, 4, 5, 6].map((num) => (
-                  <div key={`qty${num}`}>
-                    <Label htmlFor={`qty${num}`}>数量{num}</Label>
-                    <Input
-                      type="text"
-                      id={`qty${num}`}
-                      name={`qty${num}`}
-                      value={formData[`qty${num as 1 | 2 | 3 | 4 | 5 | 6}`]}
-                      onChange={handleInputChange}
-                      className={errors[`qty${num}`] ? 'border-red-500' : ''}
-                    />
-                    {errors[`qty${num}`] && (
-                      <p className="text-red-500 text-sm mt-1">
-                        {errors[`qty${num}`]![0]}
-                      </p>
-                    )}
-                  </div>
-                ))}
-              </div>
-
-              <Button onClick={handleSubmit}>
-                {isEditMode ? '更新' : '作成'}
-              </Button>
+      */}
+      <Card className="w-full max-w-4xl mx-auto my-2" >
+        <CardHeader>
+          <CardTitle>
+            {!isEditMode ? 'Add New Todo' : 'Edit Todo' }
+          </CardTitle>
+          <div>
+              Fill in the details for your todo item.
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-4">
+            <div>
+              <Label htmlFor="title">タイトル</Label>
+              <Input
+                id="title"
+                name="title"
+                value={formData.title}
+                onChange={handleInputChange}
+                className={errors.title ? 'border-red-500' : ''}
+              />
+              {errors.title && (
+                <p className="text-red-500 text-sm mt-1">{errors.title[0]}</p>
+              )}
             </div>
-            {/* ... 前のコードと同じ ... */}
-          </DialogContent>
-        </Dialog>
-      </div>
+
+            <div>
+              <Label htmlFor="content">内容</Label>
+              <Textarea
+                id="content"
+                name="content"
+                value={formData.content}
+                onChange={handleInputChange}
+                className={errors.content ? 'border-red-500' : ''}
+              />
+              {errors.content && (
+                <p className="text-red-500 text-sm mt-1">{errors.content[0]}</p>
+              )}
+            </div>
+
+            <div>
+              <Label>公開設定</Label>
+              <RadioGroup
+                name="public"
+                value={formData.public}
+                onValueChange={(value: "public" | "private") => 
+                  setFormData(prev => ({ ...prev, public: value }))}
+              >
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="public" id="public" />
+                  <Label htmlFor="public">公開</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="private" id="private" />
+                  <Label htmlFor="private">非公開</Label>
+                </div>
+              </RadioGroup>
+            </div>
+
+            <div>
+              <Label>フルーツ選択</Label>
+              <div className="grid grid-cols-2 gap-2">
+                {['orange', 'apple', 'banana', 'melon', 'grape'].map((fruit) => (
+                  <div key={fruit} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={`food_${fruit}`}
+                      name={`food_${fruit}`}
+                      checked={formData[`food_${fruit as 'orange' | 'apple' | 'banana' | 'melon' | 'grape'}`]}
+                      onCheckedChange={(checked: boolean) =>
+                        setFormData(prev => ({ 
+                          ...prev, 
+                          [`food_${fruit}`]: checked 
+                        }))
+                      }
+                    />
+                    <Label htmlFor={`food_${fruit}`}>{fruit}</Label>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              {[1, 2, 3, 4, 5, 6].map((num) => (
+                <div key={`date${num}`}>
+                  <Label htmlFor={`pub_date${num}`}>日付{num}</Label>
+                  <Input
+                    type="date"
+                    id={`pub_date${num}`}
+                    name={`pub_date${num}`}
+                    value={formData[`pub_date${num as 1 | 2 | 3 | 4 | 5 | 6}`]}
+                    onChange={handleInputChange}
+                  />
+                </div>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              {[1, 2, 3, 4, 5, 6].map((num) => (
+                <div key={`qty${num}`}>
+                  <Label htmlFor={`qty${num}`}>数量{num}</Label>
+                  <Input
+                    type="text"
+                    id={`qty${num}`}
+                    name={`qty${num}`}
+                    value={formData[`qty${num as 1 | 2 | 3 | 4 | 5 | 6}`]}
+                    onChange={handleInputChange}
+                    className={errors[`qty${num}`] ? 'border-red-500' : ''}
+                  />
+                  {errors[`qty${num}`] && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors[`qty${num}`]![0]}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+            <Button onClick={handleSubmit}>
+              {isEditMode ? '更新' : '作成'}
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
     </div>
   </>
   );
 };
 
 export default Compo;
+/*
+      <div className="mt-2 mb-4 flex items-center gap-4">
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <hr />
+          <DialogTrigger asChild>
+          </DialogTrigger>
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>{isEditMode ? 'TODO編集' : '新規TODO作成'}</DialogTitle>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
+      </div>
+*/

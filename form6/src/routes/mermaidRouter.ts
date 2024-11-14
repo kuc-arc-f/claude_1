@@ -53,6 +53,9 @@ console.log("path=", url + path);
     //console.log(response.data);
     retObj.ret = 200;
     retObj.data = response.data.data;
+    //const out  = todoData.convertTextArray(retObj.data);
+    //console.log(out);
+    //retObj.data = out;
     return res.json(retObj);
   } catch (error) {
     console.error(error);

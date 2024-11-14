@@ -15,7 +15,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 //
 import Head from '../components/Head';
-import TodoForm from './FormTest3/TodoForm';
+import TodoForm from './FormTest7/TodoForm';
+import CrudIndex from './FormTest7/CrudIndex';
 
 // zodスキーマの定義
 const todoSchema = z.object({
@@ -41,8 +42,6 @@ interface ValidationErrors {
   [key: string]: string[];
 }
 
-const LOCAL_STORAGE_KEY = 'claude_1_todos';
-
 const TodoApp: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -62,24 +61,13 @@ const TodoApp: React.FC = () => {
     qty2: '',
     qty3: '',
   });
-
-  // LocalStorageからデータを読み込む
   useEffect(() => {
-    const savedTodos = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if (savedTodos) {
-      try {
-        const parsedTodos = JSON.parse(savedTodos);
-        setTodos(parsedTodos);
-      } catch (error) {
-        console.error('Failed to parse todos from localStorage:', error);
-      }
-    }
+    (async() => {
+      const d = await CrudIndex.getList();
+      setTodos(d);
+      console.log(d);
+    })()
   }, []);
-
-  // TODOsが変更されたらLocalStorageに保存
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
-  }, [todos]);
 
   const resetForm = () => {
     //console.log("#resetForm");
@@ -120,16 +108,20 @@ const TodoApp: React.FC = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!validateForm()) {
       return;
     }
 
     if (currentTodo) {
+      let resulte = await CrudIndex.update(formData, Number(currentTodo.id) );
+      console.log(resulte)
       setTodos(todos.map(todo => 
         todo.id === currentTodo.id ? { ...formData, id: todo.id } : todo
       ));
     } else {
+      let resulte = await CrudIndex.create(formData);
+      console.log(resulte);
       setTodos([...todos, { ...formData, id: Date.now() }]);
     }
     setIsOpen(false);
@@ -143,8 +135,10 @@ const TodoApp: React.FC = () => {
     setIsOpen(true);
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = async (id: number) => {
     if (window.confirm('本当に削除しますか？')) {
+      let resulte = await CrudIndex.delete(id);
+      console.log(resulte);
       setTodos(todos.filter(todo => todo.id !== id));
     }
   };
@@ -170,7 +164,7 @@ const TodoApp: React.FC = () => {
     <Head />
     <div className="p-4 max-w-4xl mx-auto">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">TODOアプリ</h1>
+        <h1 className="text-2xl font-bold">Form7</h1>
         <TodoForm 
         handleSubmit={handleSubmit}
         currentTodo={currentTodo}

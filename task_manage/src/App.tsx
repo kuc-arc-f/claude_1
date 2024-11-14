@@ -12,8 +12,9 @@ import FormTest3 from './client/FormTest3';
 import FormTest4 from './client/FormTest4';
 import FormTest5 from './client/FormTest5';
 import FormTest6 from './client/FormTest6';
-import FormTest6crate from './client/FormTest6/Create';
-import FormTest6edit from './client/FormTest6/Edit';
+//import FormTest6crate from './client/FormTest6/Create';
+import FormTest6crate from './client/FormTest6create';
+import FormTest6edit from './client/FormTest6edit';
 
 import Mermaid from './client/Mermaid';
 import Plan from './client/Plan';

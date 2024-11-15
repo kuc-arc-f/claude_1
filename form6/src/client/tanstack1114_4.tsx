@@ -107,7 +107,7 @@ const TodoApp = () => {
 
   return (
     <div className="p-4 max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">TODO アプリ 2</h1>
+      <h1 className="text-2xl font-bold mb-4">TODO アプリ</h1>
       
       {/* 検索バー */}
       <div className="flex items-center gap-4 mb-4">

@@ -27,7 +27,19 @@ const TodoApp = () => {
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [sorting, setSorting] = useState({ field: 'createdAt', direction: 'desc' });
-
+  const [formData, setFormData] = useState({
+    title: '',
+    content: '',
+    public: 'public',
+    food_orange: false,
+    food_apple: false,
+    food_banana: false,
+    pub_date: '',
+    qty1: '',
+    qty2: '',
+    qty3: '',
+  });
+  
   // 新規TODOの追加
   const handleAddTodo = () => {
     if (newTodo.trim()) {
@@ -107,7 +119,7 @@ const TodoApp = () => {
 
   return (
     <div className="p-4 max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">TODO アプリ 2</h1>
+      <h1 className="text-2xl font-bold mb-4">TODO アプリ</h1>
       
       {/* 検索バー */}
       <div className="flex items-center gap-4 mb-4">

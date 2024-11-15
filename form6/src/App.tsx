@@ -15,6 +15,8 @@ import FormTest6 from './client/FormTest6';
 import FormTest6crate from './client/FormTest6create';
 import FormTest6edit from './client/FormTest6edit';
 import FormTest7 from './client/FormTest7';
+import FormTest8 from './client/FormTest8';
+import FormTest9 from './client/FormTest9';
 
 import Mermaid from './client/Mermaid';
 import Plan from './client/Plan';
@@ -27,7 +29,15 @@ import TaskManage2 from './client/TaskManage2';
 import Todo from './client/Todo';
 //
 import Test1 from './client/Test1';
-import Test2 from './client/Test2'; 
+import Test2 from './client/Test2';
+import Test4 from './client/Test4';
+import Test5 from './client/Test5';
+import Test6 from './client/Test6';
+//
+import Tanstack1114_4 from './client/tanstack1114_4';
+import Tanstack1114_5 from './client/tanstack1114_5';
+import Tanstack1114_6 from './client/tanstack1114_6';
+import Tanstack1115_1 from './client/tanstack1115_1';
 //
 export default function App(){
     return(
@@ -47,6 +57,9 @@ export default function App(){
         <Route path="/form_test6create" element={<FormTest6crate />} />
         <Route path="/form_test6edit" element={<FormTest6edit />} />
         <Route path="/form_test7" element={<FormTest7 />} />
+        <Route path="/form_test8" element={<FormTest8 />} />
+        <Route path="/form_test9" element={<FormTest9 />} />
+        
         <Route path="/mermaid" element={<Mermaid />} />
         <Route path="/plan" element={<Plan />} />
         <Route path="/plan4" element={<Plan4 />} />
@@ -57,12 +70,20 @@ export default function App(){
         <Route path="/todo" element={<Todo />} />
         <Route path="/test1" element={<Test1 />} />
         <Route path="/test2" element={<Test2 />} />
+        <Route path="/test4" element={<Test4 />} />
+        <Route path="/test5" element={<Test5 />} />
+        <Route path="/test6" element={<Test6 />} />
+        
+        {/* table */}
+        <Route path="/tanstack1114_4" element={<Tanstack1114_4 />} />
+        <Route path="/tanstack1114_5" element={<Tanstack1114_5 />} />
+        <Route path="/tanstack1114_6" element={<Tanstack1114_6 />} />
+        <Route path="/tanstack1115_1" element={<Tanstack1115_1 />} />
+
       </Routes>
     </div>
     )
 }
 /*
-<Route path="/test3" element={<Test3 />} />
-<Route path="/test4" element={<Test4 />} />
 <Route path="/datatable" element={<DataTable />} />
 */

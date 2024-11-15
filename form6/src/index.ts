@@ -8,7 +8,7 @@ import Common from './lib/Common';
 import Login from './client/login';
 import Top from './pages/App';
 import About from './pages/about';
-import Test3 from './pages/Test3';
+//import Test3 from './pages/Test3';
 import MermaidShow from './pages/MermaidShow';
 import MermaidCrudIndex from './pages/MermaidShow/CrudIndex';
 import TaskItemGantt from './pages/TaskItemGantt';
@@ -63,9 +63,9 @@ app.use(async function(req: any, res: any, next: any){
   }
 });
 //MPA 
-app.get("/test3", (req, res) => {
-  res.send(renderToString(Test3()));
-});
+//app.get("/test93", (req, res) => {
+//  res.send(renderToString(Test3()));
+//});
 app.get('/mermaidshow/:id', async (req: any, res: any) => {
   console.log("id=", req.params.id  );
   try {

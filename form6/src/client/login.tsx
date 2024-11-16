@@ -30,7 +30,7 @@ function Page() {
       if(json.ret !== 200){
         alert("Error, Login");
       }else{
-        alert("OK");
+        //alert("OK");
         location.href = '/';
       }
     } catch (e) {

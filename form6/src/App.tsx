@@ -17,6 +17,7 @@ import FormTest6edit from './client/FormTest6edit';
 import FormTest7 from './client/FormTest7';
 import FormTest8 from './client/FormTest8';
 import FormTest9 from './client/FormTest9';
+import FormTest10 from './client/FormTest10';
 
 import Mermaid from './client/Mermaid';
 import Plan from './client/Plan';
@@ -33,6 +34,7 @@ import Test2 from './client/Test2';
 import Test4 from './client/Test4';
 import Test5 from './client/Test5';
 import Test6 from './client/Test6';
+import Test7 from './client/Test7';
 //
 import Tanstack1114_4 from './client/tanstack1114_4';
 import Tanstack1114_5 from './client/tanstack1114_5';
@@ -59,6 +61,7 @@ export default function App(){
         <Route path="/form_test7" element={<FormTest7 />} />
         <Route path="/form_test8" element={<FormTest8 />} />
         <Route path="/form_test9" element={<FormTest9 />} />
+        <Route path="/form_test10" element={<FormTest10 />} />
         
         <Route path="/mermaid" element={<Mermaid />} />
         <Route path="/plan" element={<Plan />} />
@@ -73,7 +76,8 @@ export default function App(){
         <Route path="/test4" element={<Test4 />} />
         <Route path="/test5" element={<Test5 />} />
         <Route path="/test6" element={<Test6 />} />
-        
+        <Route path="/test7" element={<Test7 />} />
+
         {/* table */}
         <Route path="/tanstack1114_4" element={<Tanstack1114_4 />} />
         <Route path="/tanstack1114_5" element={<Tanstack1114_5 />} />

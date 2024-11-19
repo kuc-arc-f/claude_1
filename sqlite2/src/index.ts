@@ -59,6 +59,9 @@ app.get('/api/todos', async (req, res) => {
 app.post('/api/todos', async (req, res) => {
   try {
     const validatedData = TodoSchema.parse(req.body);
+    let pubDateValue = null;
+    if(!validatedData.pubDate) { validatedData.pubDate = pubDateValue; }
+    //console.log(validatedData);
     const todo = await prisma.todo.create({
       data: {
         ...validatedData,

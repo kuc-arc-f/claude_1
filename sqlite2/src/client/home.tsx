@@ -53,6 +53,7 @@ const TodoApp = () => {
     try {
       const response = await fetch(`/api/todos${searchQuery ? `?search=${searchQuery}` : ''}`);
       const data = await response.json();
+      //console.log( data );
       setTodos(data);
     } catch (error) {
       console.error('Error fetching todos:', error);
@@ -133,9 +134,9 @@ const TodoApp = () => {
       foodApple: false,
       foodBanana: false,
       pubDate: '',
-      qty1: '',
-      qty2: '',
-      qty3: '',
+      qty1: '0',
+      qty2: '0',
+      qty3: '0',
     });
     setEditingTodo(null);
   };

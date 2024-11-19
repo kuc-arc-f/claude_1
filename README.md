@@ -37,6 +37,7 @@ bun run dev
 * plan4: Schedule , localStorage save
 * mermaid: mermaid chart display , d1 + database
 * task_manage: task manage , d1 + database
+* sqlite1: sqlite example
 
 ***
 ### ChangeLog
